@@ -28,7 +28,7 @@ Body: typeof(HandlerDto)
 Response: "application/octet-stream"
 ## Models <hr />
 
-```json
+```typescript
 export class HandlerDto {
 	/**
 	 * Template URI; must be a PDF location
