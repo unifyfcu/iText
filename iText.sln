@@ -22,13 +22,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0EB29FA6-7A1F-4241-B4F3-E0F1C2B3D9D3}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://dev.azure.com/unifyfcu
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Api\\Api.csproj
-		SccProjectName1 = Api
-		SccLocalPath1 = Api
-	EndGlobalSection
 EndGlobal
