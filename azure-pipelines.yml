@@ -1,0 +1,57 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+    - stage
+    - train
+    - dev
+
+pool:
+  name: Azure Pipelines
+  vmImage: 'windows-2022'
+  demands:
+  - msbuild
+  - visualstudio
+
+variables:
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+    artifact: 'ufcu-digital-prd-itext'
+  ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/stage') }}:
+    artifact: 'ufcu-digital-stg-itext'
+  ${{ elseif eq(variables['Build.SourceBranch'], 'refs/heads/train') }}:
+    artifact: 'ufcu-digital-tng-itext'
+  ${{ else }}:
+    artifact: 'ufcu-digital-dev-itext'
+
+steps:
+- checkout: self
+  clean: true
+- task: UseDotNet@2
+  displayName: 'Use .NET Core 8'
+  inputs:
+    version: 8.x
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet >=6.0.0'
+  inputs:
+    versionSpec: '>=6.0.0'
+- task: NuGetCommand@2
+  displayName: 'NuGet Restore'
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+- task: DotNetCoreCLI@2
+  displayName: 'Build Solution'
+  inputs:
+    command: 'publish'
+    projects: '**/*.csproj'
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: $(artifact)
