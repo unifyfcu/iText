@@ -23,7 +23,7 @@ public class HandlerDto
     [JsonIgnore]
     public byte[] Template =>
         // we need to first determine if we have a template url or a base64 encoded byte array
-        string.IsNullOrEmpty(TemplateUrl) ? Convert.FromBase64String(TemplateData!) : Array.Empty<byte>();
+        string.IsNullOrEmpty(TemplateUrl) ? Convert.FromBase64String(TemplateData!) : [];
 
     // TODO - actually download the template pdf
     /// <summary>
