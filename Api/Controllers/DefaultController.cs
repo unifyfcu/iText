@@ -29,7 +29,7 @@ public class DefaultController(IHandler handler) : ControllerBase
         try
         {
             var fields = await handler.Fields();
-            handler.Template = Array.Empty<byte>();
+            handler.Template = [];
             return Ok(fields);
         }
         catch (Exception e)
@@ -61,7 +61,7 @@ public class DefaultController(IHandler handler) : ControllerBase
                 await stream.CopyToAsync(file);
             var f = new DeleteAfterReadingStream(temp, FileMode.Open, FileAccess.Read);
             Log.Information($"Created PDF: {f.Name}");
-            handler.Template = Array.Empty<byte>();
+            handler.Template = [];
             return File(f, "application/pdf", "document.pdf");
         }
         catch (Exception e)
@@ -106,7 +106,7 @@ public class DefaultController(IHandler handler) : ControllerBase
             // return the zip'd archive
             // we need a stream to return
             var zip = new DeleteAfterReadingStream(archive.FullName, FileMode.Open, FileAccess.Read);
-            handler.Template = Array.Empty<byte>();
+            handler.Template = [];
             return File(zip, "application/octet-stream", "archive.zip");
         }
         catch (Exception e)
@@ -141,7 +141,7 @@ public class DefaultController(IHandler handler) : ControllerBase
                 var request = new RestRequest(dto.TemplateUrl);
                 request.AddHeader("Accept", "application/pdf");
                 var response = await new RestClient().ExecuteAsync(request);
-                handler.Template = response.RawBytes ?? Array.Empty<byte>();
+                handler.Template = response.RawBytes ?? [];
                 break;
             }
             default:
