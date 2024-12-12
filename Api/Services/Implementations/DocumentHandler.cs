@@ -4,22 +4,13 @@ using iText.Kernel.Pdf;
 
 namespace Api.Services.Implementations;
 
+/// <summary>
+/// <see cref="IHandler" />
+/// </summary>
 public class DocumentHandler : IHandler
 {
     /// <inheritdoc />
-    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
-
-    /// <inheritdoc />
-    public void Dispose() { }
-
-    /// <inheritdoc />
-    public byte[] Template { get; set; } = Array.Empty<byte>();
-
-    /// <inheritdoc />
-    public Stream Generate(IDictionary<string, string> properties)
-    {
-        throw new NotImplementedException();
-    }
+    public byte[] Template { get; set; } = [];
 
     /// <inheritdoc />
     public async Task<ICollection<string>> Fields()
